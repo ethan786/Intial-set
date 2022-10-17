@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { createCustomerDto } from 'src/DTO/create-customer.dto';
+// import { createCustomerDto } from 'src/DTO/create-customer.dto';
+import { createCustomerDto } from '../DTO/create-customer.dto';
 import { CustomerService } from './customer.service';
 
 @Controller('customer')

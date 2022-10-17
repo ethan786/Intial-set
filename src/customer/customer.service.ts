@@ -1,21 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { min } from 'rxjs';
 import { createCustomerDto } from 'src/DTO/create-customer.dto';
 
-var b = ["firstname", "secondName", "name", "phone", "id"];
+var b = ["firstname", "secondname", "name", "phone", "id"];
 @Injectable()
 export class CustomerService {
     matched(word) {
-        // word = word.toLowerCase();  
-        for(let i in b) {
-            let j = 0, k = 0;
-            let newWord = b[i]; // name
-            while(j < newWord.length && k < word.length) {
-                if(newWord[j] == word[k]) j++;
-                k++;
-                }
-                if(j == newWord.length) return i;
-            }
+        word = word.toLowerCase();  
+        // for(let i in b) {
+        //     let j = 0, k = 0;
+        //     let newWord = b[i]; // name
+        //     while(j < newWord.length && k < word.length) {
+        //         if(newWord[j] == word[k]) j++;
+        //         k++;
+        //     }
+        //     if(j == newWord.length) return i;
+        // }
+        
+        for( let i in b) {
+            let index = word.indexOf(b[i]);
+            if(index != -1) return i;
+        }
         return -1;
     }
     solve(createCustomerDto : createCustomerDto) {
@@ -24,7 +28,6 @@ export class CustomerService {
         let arr = createCustomerDto.column;
         for(let i in arr) {
             let val = this.matched(arr[i]);
-            console.log(val, arr[i]); 
             switch(val) {
                 case "0":
                     firstname.push(arr[i]);
@@ -46,6 +49,7 @@ export class CustomerService {
                     break;
             }
         }
+
         for(let i in firstname) {
             ans.push(firstname[i]);
         }
@@ -62,7 +66,6 @@ export class CustomerService {
             ans.push(id[i]);
         }
         
-        // 
         let size_a = ans.length;
         for(let i = 0; size_a < 5; i++) {
             ans.push(randomPick[i]);
